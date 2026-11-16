@@ -322,11 +322,47 @@ h2{font-weight:600}
 .edu-row{padding-block:20px}
 .lang{padding-block:8px;font-size:15px}
 .figures b{font-weight:600}
+
+/* ===== side margins: dot pattern + rails ===== */
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(var(--accent) 1px,transparent 1.4px);background-size:24px 24px;opacity:.22;
+  -webkit-mask-image:linear-gradient(90deg,#000 0,rgba(0,0,0,.6) 8%,transparent calc(50% - 560px),transparent calc(50% + 560px),rgba(0,0,0,.6) 92%,#000 100%);
+  mask-image:linear-gradient(90deg,#000 0,rgba(0,0,0,.6) 8%,transparent calc(50% - 560px),transparent calc(50% + 560px),rgba(0,0,0,.6) 92%,#000 100%)}
+.rail{position:fixed;z-index:6;display:none;flex-direction:column;align-items:center;gap:18px}
+.rail-l{left:max(32px, env(safe-area-inset-left,0px));bottom:0}
+.rail-r{right:max(32px, env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%)}
+@media (min-width:1240px){.rail{display:flex}}
+.rail a.ico{color:var(--muted);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);transition:color .25s,border-color .25s,transform .25s}
+.rail a.ico:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-3px)}
+.rail a.ico svg{width:16px;height:16px}
+.rail-text{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.rail-text b{color:var(--accent);font-weight:500}
+.rail-line{width:1px;height:110px;background:linear-gradient(var(--accent),transparent);opacity:.7}
+.rail-l .rail-line{background:linear-gradient(transparent,var(--accent))}
+.spy{display:flex;flex-direction:column;gap:16px;align-items:center}
+.spy a{position:relative;display:block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--muted);transition:background .3s,border-color .3s,transform .3s}
+.spy a.on{background:var(--accent);border-color:var(--accent);transform:scale(1.3)}
+.spy a::after{content:attr(data-label);position:absolute;right:22px;top:50%;transform:translateY(-50%);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);white-space:nowrap;background:var(--surface);border:1px solid var(--line);padding:3px 8px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .2s}
+.spy a:hover::after,.spy a:focus-visible::after{opacity:1}
+.rail-r .count{font-family:var(--f-mono);font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rail-r .count b{color:var(--accent);font-weight:500}
 </style>
 <style>body{margin:0}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 </head>
 <body>
 <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+<aside class="rail rail-l">
+  <a class="ico" href="https://github.com/hammamimariam" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+  <a class="ico" href="#contact" data-to-contact aria-label="Contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+  <span class="rail-text" aria-hidden="true"><b>&lt;/&gt;</b> Full-Stack · Web · Mobile · IA</span>
+  <span class="rail-line" aria-hidden="true"></span>
+</aside>
+<nav class="rail rail-r" aria-label="Sections">
+  <span class="rail-line" aria-hidden="true"></span>
+  <div class="spy"></div>
+  <span class="count" aria-hidden="true"><b class="cur">01</b> / <span class="tot">08</span></span>
+</nav>
 
 <div class="wrap">
   <nav>
@@ -434,7 +470,7 @@ h2{font-weight:600}
           <div class="rv"><h3>// backend</h3><div class="chips"><span class="chip">NestJS</span><span class="chip">Node.js (Express)</span><span class="chip">Spring Boot</span><span class="chip">ASP.NET Core</span><span class="chip">Django REST</span><span class="chip">Laravel</span><span class="chip">API REST</span><span class="chip">JWT</span></div></div>
           <div class="rv"><h3>// bases de données &amp; ORM</h3><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Prisma</span><span class="chip">Modélisation relationnelle</span></div></div>
           <div class="rv"><h3>// mobile</h3><div class="chips"><span class="chip">Flutter</span><span class="chip">ML Kit</span></div></div>
-          <div class="rv"><h3>// intelligence artificielle</h3><div class="chips"><span class="chip ai">LLM</span><span class="chip ai">RAG</span><span class="chip ai">Ollama</span><span class="chip ai">PyTorch</span><span class="chip ai">OCR</span></div></div></div>
+          <div class="rv"><h3>// intelligence artificielle</h3><div class="chips"><span class="chip ai">LLM</span><span class="chip ai">RAG</span><span class="chip ai">Ollama</span><span class="chip ai">PyTorch</span><span class="chip ai">OCR</span></div></div>
           <div class="rv"><h3>// devops &amp; outils</h3><div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">GitLab</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">VMware</span><span class="chip">AWS</span></div></div>
           <div class="rv"><h3>// outils &amp; méthodes</h3><div class="chips"><span class="chip">Scrum</span><span class="chip">Temps réel</span></div></div>
         </div>
@@ -665,7 +701,7 @@ h2{font-weight:600}
           <div class="rv"><h3>// backend</h3><div class="chips"><span class="chip">NestJS</span><span class="chip">Node.js (Express)</span><span class="chip">Spring Boot</span><span class="chip">ASP.NET Core</span><span class="chip">Django REST</span><span class="chip">Laravel</span><span class="chip">REST APIs</span><span class="chip">JWT</span></div></div>
           <div class="rv"><h3>// databases &amp; ORM</h3><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Prisma</span><span class="chip">Relational modelling</span></div></div>
           <div class="rv"><h3>// mobile</h3><div class="chips"><span class="chip">Flutter</span><span class="chip">ML Kit</span></div></div>
-          <div class="rv"><h3>// artificial intelligence</h3><div class="chips"><span class="chip ai">LLM</span><span class="chip ai">RAG</span><span class="chip ai">Ollama</span><span class="chip ai">PyTorch</span><span class="chip ai">OCR</span></div></div></div>
+          <div class="rv"><h3>// artificial intelligence</h3><div class="chips"><span class="chip ai">LLM</span><span class="chip ai">RAG</span><span class="chip ai">Ollama</span><span class="chip ai">PyTorch</span><span class="chip ai">OCR</span></div></div>
           <div class="rv"><h3>// devops &amp; tools</h3><div class="chips"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">GitLab</span><span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">VMware</span><span class="chip">AWS</span></div></div>
           <div class="rv"><h3>// tools &amp; methods</h3><div class="chips"><span class="chip">Scrum</span><span class="chip">Real-time apps</span></div></div>
         </div>
@@ -1057,6 +1093,39 @@ h2{font-weight:600}
     });
     box.querySelectorAll('[data-cmd]').forEach(function(b){ b.addEventListener('click', function(){ run(b.getAttribute('data-cmd')); }); });
   });
+
+  /* ---- side rail: section scroll-spy ---- */
+  (function(){
+    var spy = document.querySelector('.spy'); if (!spy) return;
+    var cur = document.querySelector('.rail-r .cur'), tot = document.querySelector('.rail-r .tot'), spyIO = null;
+    function pad(n){ return (n < 10 ? '0' : '') + n; }
+    function build(){
+      var main = document.querySelector('main:not([hidden])'); if (!main) return;
+      var en = main.getAttribute('data-lang') === 'en';
+      var items = [{el: main.querySelector('.hero'), id: '', label: en ? 'Home' : 'Accueil'}];
+      main.querySelectorAll('section[id]').forEach(function(s){
+        var l = s.querySelector('.label'); items.push({el: s, id: s.id, label: l ? l.textContent.trim() : s.id});
+      });
+      spy.textContent = '';
+      if (spyIO) spyIO.disconnect();
+      tot.textContent = pad(items.length);
+      var links = items.map(function(it, i){
+        var a = document.createElement('a'); a.href = '#' + (it.id || 'top'); a.setAttribute('data-label', it.label); a.setAttribute('aria-label', it.label);
+        a.addEventListener('click', function(e){ e.preventDefault(); it.el.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'}); });
+        spy.appendChild(a); return a;
+      });
+      function on(i){ links.forEach(function(a, j){ a.classList.toggle('on', i === j); }); cur.textContent = pad(i + 1); }
+      on(0);
+      if ('IntersectionObserver' in window){
+        spyIO = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ var i = items.findIndex(function(it){ return it.el === e.target; }); if (i > -1) on(i); } }); }, {rootMargin: '-45% 0px -50% 0px'});
+        items.forEach(function(it){ if (it.el) spyIO.observe(it.el); });
+      }
+    }
+    build();
+    document.querySelectorAll('.lang-switch button').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(build, 20); }); });
+    var mail = document.querySelector('[data-to-contact]');
+    if (mail) mail.addEventListener('click', function(e){ e.preventDefault(); var c = document.querySelector('main:not([hidden]) .contact'); if (c) c.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); });
+  })();
 })();
 </script>
 </body>
